@@ -3,16 +3,16 @@
     <!--    <div class="dashboard-text">你好，{{ user.nickname }}</div>-->
     <el-form label-position="right" label-width="60px">
       <el-form-item label="1">
-        <el-input v-model="a" />
+        <el-input v-model="a" size="mini" type="number" clearable />
       </el-form-item>
       <el-form-item label="2">
-        <el-input v-model="b" />
+        <el-input v-model="b" size="mini" type="number" clearable />
       </el-form-item>
       <el-form-item label="3">
-        <el-input v-model="c" />
+        <el-input v-model="c" size="mini" type="number" clearable />
       </el-form-item>
       <el-form-item label="总共">
-        <el-input v-model="total" @keyup.enter.native="cou">
+        <el-input v-model="total" size="mini" type="number" clearable @keyup.enter.native="cou">
           <template slot="append">
             <el-button :loading="loading" size="mini" type="success" @click="cou">凑单</el-button>
           </template>
@@ -108,7 +108,7 @@ export default {
 
   .el-form-item {
     .el-input {
-      width: 300px;
+      width: 250px;
     }
   }
 
