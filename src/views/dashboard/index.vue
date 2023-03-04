@@ -19,10 +19,10 @@
         </el-input>
       </el-form-item>
     </el-form>
-    <el-table v-loading="loading" :data="results" size="mini" border stripe :header-cell-style="{background: 'aliceblue'}">
-      <el-table-column prop="i" :label="a" show-overflow-tooltip />
-      <el-table-column prop="j" :label="b" show-overflow-tooltip />
-      <el-table-column prop="k" :label="c" show-overflow-tooltip />
+    <el-table v-loading="loading" :data="results" size="mini" highlight-current-row border stripe :header-cell-style="{background: 'aliceblue'}">
+      <el-table-column align="center" prop="i" :label="a" show-overflow-tooltip />
+      <el-table-column align="center" prop="j" :label="b" show-overflow-tooltip />
+      <el-table-column align="center" prop="k" :label="c" show-overflow-tooltip />
     </el-table>
   </div>
 </template>
