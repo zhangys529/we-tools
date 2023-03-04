@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <!--    <div class="dashboard-text">你好，{{ user.nickname }}</div>-->
-    <el-form label-position="right" label-width="40px">
+    <el-form label-position="right" label-width="60px">
       <el-form-item label="1">
         <el-input v-model="a" />
       </el-form-item>
@@ -20,9 +20,9 @@
       </el-form-item>
     </el-form>
     <el-table v-loading="loading" :data="results" size="mini" border stripe :header-cell-style="{background: 'aliceblue'}">
-      <el-table-column prop="i" :label="a" show-overflow-tooltip width="100" />
-      <el-table-column prop="j" :label="b" show-overflow-tooltip width="100" />
-      <el-table-column prop="k" :label="c" show-overflow-tooltip width="100" />
+      <el-table-column prop="i" :label="a" show-overflow-tooltip />
+      <el-table-column prop="j" :label="b" show-overflow-tooltip />
+      <el-table-column prop="k" :label="c" show-overflow-tooltip />
     </el-table>
   </div>
 </template>
