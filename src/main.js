@@ -24,6 +24,17 @@ import moment from 'moment'
 moment.locale('zh-cn')
 Vue.prototype.$moment = moment
 
+import hljs from 'highlight.js'
+import 'highlight.js/styles/atom-one-dark.css' // 样式
+
+// 创建v-highlight全局指令
+Vue.directive('highlight', function(el) {
+  const blocks = el.querySelectorAll('pre code')
+  blocks.forEach((block) => {
+    hljs.highlightBlock(block)
+  })
+})
+
 import { elIcons } from '@/api/icons'
 import * as enums from '@/api/enums'
 import * as enumFormatter from '@/api/enumFormatter'

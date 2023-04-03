@@ -41,7 +41,7 @@
               <el-image src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" class="h-6 w-6" />
             </div>
           </div>
-          <span>{{ result.choices[0].message.content }}</span>
+          <vue-markdown v-highlight :source="result.choices[0].message.content"/>
         </div>
       </el-timeline-item>
     </el-timeline>
@@ -58,9 +58,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import { chat } from '@/api/chat'
+import VueMarkdown from 'vue-markdown'
 
 export default {
   name: 'Dashboard',
+  components: { VueMarkdown },
   data() {
     return {
       a: null,
