@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container">
+  <div ref="container" class="dashboard-container">
     <!--    <div class="dashboard-text">你好，{{ user.nickname }}</div>-->
 
     <el-form label-position="right" label-width="60px">
@@ -46,7 +46,7 @@
       </el-timeline-item>
     </el-timeline>
     <div style="display: flex;justify-content: center">
-      <el-input v-model="content" @keyup.native.enter="chat" style="position: fixed;bottom: 50px;width: 500px">
+      <el-input v-model="content" :disabled="loading" @keyup.native.enter="chat" style="position: fixed;bottom: 50px;width: 500px">
         <template slot="append">
           <el-button :loading="loading" icon="el-icon-s-promotion" @click="chat" />
         </template>
@@ -133,11 +133,19 @@ export default {
         }]
       })
       this.$forceUpdate()
+      this.scrollBottom()
       chat(this.content).then(response => {
         this.chatResults.push(response)
         this.$forceUpdate()
+        this.scrollBottom()
       }).finally(() => {
         this.loading = false
+      })
+    },
+    scrollBottom() {
+      // 跳到底部操作
+      this.$nextTick(() => {
+        this.$refs.appContainer.scrollIntoView(false)
       })
     }
   }
