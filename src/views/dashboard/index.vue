@@ -27,7 +27,7 @@
     </el-table>
 
     <el-timeline>
-      <el-timeline-item v-for="(result,index) in results" :timestamp="enumFormatter.timeFormatter2(result.created*1000)" placement="top">
+      <el-timeline-item v-for="(result,index) in chatResults" :timestamp="enumFormatter.timeFormatter2(result.created*1000)" placement="top">
         <div class="text-base gap-4 md:gap-6 p-4 md:py-6 flex lg:px-0 m-auto">
           <div class="w-[30px] flex flex-col relative items-end">
             <div v-if="result.choices[0].message.role==='assistant'" class="relative h-[30px] w-[30px] p-1 rounded-sm text-white flex items-center justify-center" style="background-color: rgb(16, 163, 127);">
@@ -69,6 +69,7 @@ export default {
       total: null,
       loading: false,
       results: [],
+      chatResults: [],
       content: null
     }
   },
@@ -122,7 +123,7 @@ export default {
     },
     chat() {
       this.loading = true
-      this.results.push({
+      this.chatResults.push({
         created: new Date().getTime(),
         choices: [{
           message: {
@@ -133,7 +134,7 @@ export default {
       })
       this.$forceUpdate()
       chat(this.content).then(response => {
-        this.results.push(response)
+        this.chatResults.push(response)
         this.$forceUpdate()
       }).finally(() => {
         this.loading = false
