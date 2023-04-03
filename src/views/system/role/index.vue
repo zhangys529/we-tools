@@ -1,7 +1,7 @@
 <template>
   <div v-if="user.userType===999" class="app-container">
     <el-row class="head-container">
-      <el-input v-model="query.condition.roleName" size="small" clearable placeholder="角色名称" class="filter-item" @keyup.enter.native="page()" />
+      <el-input v-model="query.condition.roleName" size="small" clearable placeholder="角色名称" class="filter-item" @keypress.enter.native="page()" />
       <el-button :loading="loading" size="mini" type="primary" icon="el-icon-refresh" class="filter-item" @click="page()">搜索</el-button>
       <el-button :loading="loading" size="mini" type="success" icon="el-icon-plus" class="filter-item" @click="add">创建角色</el-button>
     </el-row>

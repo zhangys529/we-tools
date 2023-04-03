@@ -13,7 +13,7 @@
         <el-input v-model="c" size="mini" type="number" clearable />
       </el-form-item>
       <el-form-item label="总共">
-        <el-input v-model="total" size="mini" type="number" clearable @keyup.enter.native="cou">
+        <el-input v-model="total" size="mini" type="number" clearable @keypress.enter.native="cou">
           <template slot="append">
             <el-button :loading="loading" size="mini" type="success" @click="cou">凑单</el-button>
           </template>
@@ -46,7 +46,7 @@
       </el-timeline-item>
     </el-timeline>
     <div style="display: flex;justify-content: center">
-      <el-input v-model="content" :disabled="loading" @keyup.native.enter="chat" style="position: fixed;bottom: 50px;width: 500px">
+      <el-input v-model="content" autofocus :disabled="loading" @keypress.native.enter="chat" style="position: fixed;bottom: 50px;max-width: 500px;margin: 10px">
         <template slot="append">
           <el-button :loading="loading" icon="el-icon-s-promotion" @click="chat" />
         </template>
