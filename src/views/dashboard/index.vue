@@ -46,7 +46,7 @@
       </el-timeline-item>
     </el-timeline>
     <div style="display: flex;justify-content: center">
-      <el-input v-model="content" autofocus :disabled="loading" @keypress.native.enter="chat" style="position: fixed;bottom: 50px;max-width: 500px;margin: 10px">
+      <el-input ref="chatInput" v-model="content" :disabled="loading" @keypress.native.enter="chat" style="position: fixed;bottom: 50px;max-width: 500px;margin: 10px">
         <template slot="append">
           <el-button :loading="loading" icon="el-icon-s-promotion" @click="chat" />
         </template>
@@ -75,6 +75,11 @@ export default {
       chatResults: [],
       content: null
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.chatInput.focus()
+    })
   },
   computed: {
     ...mapGetters([
@@ -138,6 +143,9 @@ export default {
         this.scrollBottom()
       }).finally(() => {
         this.loading = false
+        this.$nextTick(() => {
+          this.$refs.chatInput.focus()
+        })
       })
     },
     pushResult(role, content) {
@@ -187,6 +195,10 @@ export default {
 
   .el-card {
     width: 500px;
+  }
+
+  .el-timeline-item {
+    padding-bottom: 0;
   }
 
   .xl\:max-w-3xl {
