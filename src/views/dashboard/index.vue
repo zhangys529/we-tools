@@ -147,7 +147,7 @@ export default {
     scrollBottom() {
       // 跳到底部操作
       this.$nextTick(() => {
-        this.$refs.appContainer.scrollIntoView(false)
+        this.$refs.container.scrollIntoView(false)
       })
     }
   }
