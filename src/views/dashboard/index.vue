@@ -26,7 +26,7 @@
       <el-table-column align="center" prop="k" :label="c" show-overflow-tooltip />
     </el-table>
 
-    <el-timeline style="margin-top: 10px;margin-bottom: 50px">
+    <el-timeline style="margin-top: 10px;margin-bottom: 120px">
       <el-timeline-item v-for="(result,index) in chatResults" :timestamp="enumFormatter.timeFormatter2(result.created*1000)" :type="result.choices[0].message.role==='assistant'?'success':'primary'" placement="top">
         <div class="text-base gap-4 md:gap-6 p-4 md:py-6 flex lg:px-0 m-auto">
           <div class="w-[30px] flex flex-col relative items-end">
