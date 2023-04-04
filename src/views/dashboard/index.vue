@@ -26,8 +26,8 @@
       <el-table-column align="center" prop="k" :label="c" show-overflow-tooltip />
     </el-table>
 
-    <el-timeline>
-      <el-timeline-item v-for="(result,index) in chatResults" :timestamp="enumFormatter.timeFormatter2(result.created*1000)" placement="top">
+    <el-timeline style="margin-top: 10px;margin-bottom: 50px">
+      <el-timeline-item v-for="(result,index) in chatResults" :timestamp="enumFormatter.timeFormatter2(result.created*1000)" :type="result.choices[0].message.role==='assistant'?'success':'primary'" placement="top">
         <div class="text-base gap-4 md:gap-6 p-4 md:py-6 flex lg:px-0 m-auto">
           <div class="w-[30px] flex flex-col relative items-end">
             <div v-if="result.choices[0].message.role==='assistant'" class="relative h-[30px] w-[30px] p-1 rounded-sm text-white flex items-center justify-center" style="background-color: rgb(16, 163, 127);">
@@ -37,7 +37,7 @@
                   fill="currentColor"></path>
               </svg>
             </div>
-            <div v-else class="relative h-[30px] w-[30px] p-1 rounded-sm text-white flex items-center justify-center" style="background-color: rgb(255,98,21);">
+            <div v-else class="relative h-[30px] w-[30px] rounded-sm text-white flex items-center justify-center">
               <el-image src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" class="h-6 w-6" />
             </div>
           </div>
@@ -126,7 +126,7 @@ export default {
     chat() {
       this.loading = true
       this.chatResults.push({
-        created: new Date().getTime(),
+        created: new Date().getTime()/1000,
         choices: [{
           message: {
             role: 'user',
