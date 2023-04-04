@@ -20,7 +20,7 @@
         </el-input>
       </el-form-item>
     </el-form>
-    <el-table v-loading="loading" :data="results" size="mini" highlight-current-row border stripe :header-cell-style="{background: 'aliceblue'}">
+    <el-table v-loading="loading" :data="couResults" size="mini" highlight-current-row border stripe :header-cell-style="{background: 'aliceblue'}">
       <el-table-column align="center" prop="i" :label="a" show-overflow-tooltip />
       <el-table-column align="center" prop="j" :label="b" show-overflow-tooltip />
       <el-table-column align="center" prop="k" :label="c" show-overflow-tooltip />
@@ -41,7 +41,7 @@
               <el-image src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" class="h-6 w-6" />
             </div>
           </div>
-          <vue-markdown v-highlight :source="result.choices[0].message.content"/>
+          <vue-markdown v-highlight :source="result.choices[0].message.content" />
         </div>
       </el-timeline-item>
     </el-timeline>
@@ -70,7 +70,8 @@ export default {
       c: null,
       total: null,
       loading: false,
-      results: [],
+      couResults: [],
+      messages: [],
       chatResults: [],
       content: null
     }
@@ -83,7 +84,7 @@ export default {
   methods: {
     cou() {
       this.loading = true
-      this.results = []
+      this.couResults = []
       console.log(this.a, ',', this.b, ',', this.c, '==>', Number(this.total))
       if (this.c) {
         for (let i = 0; i < 300; i++) {
@@ -97,7 +98,7 @@ export default {
             for (let k = 0; k < 300; k++) {
               const result = this.a * i + this.b * j + this.c * k
               if (result === Number(this.total)) {
-                this.results.push({ i, j, k })
+                this.couResults.push({ i, j, k })
               } else if (result > Number(this.total)) {
                 break
               }
@@ -112,36 +113,48 @@ export default {
           for (let j = 0; j < 300; j++) {
             const result = this.a * i + this.b * j
             if (result === Number(this.total)) {
-              this.results.push({ i, j })
+              this.couResults.push({ i, j })
             } else if (result > Number(this.total)) {
               break
             }
           }
         }
       }
-      console.log(this.results)
-      this.$message({ message: '凑单完成 总共 [' + this.results.length + '] 种结果', type: 'success' })
+      console.log(this.couResults)
+      this.$message({ message: '凑单完成 总共 [' + this.couResults.length + '] 种结果', type: 'success' })
       this.loading = false
     },
     chat() {
       this.loading = true
-      this.chatResults.push({
-        created: new Date().getTime()/1000,
-        choices: [{
-          message: {
-            role: 'user',
-            content: this.content
-          }
-        }]
-      })
+      this.pushResult('user', this.content)
+      this.pushMessage('user', this.content)
       this.$forceUpdate()
       this.scrollBottom()
-      chat(this.content).then(response => {
+      chat(this.messages).then(response => {
         this.chatResults.push(response)
+        this.pushMessage(response.choices[0].message.role, response.choices[0].message.content)
+        this.content = null
         this.$forceUpdate()
         this.scrollBottom()
       }).finally(() => {
         this.loading = false
+      })
+    },
+    pushResult(role, content) {
+      this.chatResults.push({
+        created: new Date().getTime() / 1000,
+        choices: [{
+          message: {
+            role: role,
+            content: content
+          }
+        }]
+      })
+    },
+    pushMessage(role, content) {
+      this.messages.push({
+        role: role,
+        content: content
       })
     },
     scrollBottom() {
